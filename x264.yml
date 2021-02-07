@@ -7,7 +7,7 @@ GENERATOR:
   FlagGroups:
     - { name: LDFLAGS, flags: [ -lx264 ] }
 PARSER:
-  IncludePaths: [ /usr/include/, /usr/lib/gcc/x86_64-linux-gnu/9/include/ ]
+  IncludePaths: [ /usr/include ]
   SourcesPaths: [ x264/x264.h ]
 TRANSLATOR:
   Rules:
@@ -15,12 +15,15 @@ TRANSLATOR:
       - { transform: lower }
       - { action: accept, from: "x264_" }
       - { action: accept, from: "NAL_" }
+      - { action: replace, from: "x264_t", to: x264 }
       - { action: replace, from: "x264_", to: _ }
       - { action: ignore, from: "x264_encoder_open_161" }
       - { action: ignore, from: "x264_param_cleanup" }
       - { transform: export }
     const:
       - { action: accept, from: "^nal_" }
+    type:
+      - { action: replace, from: "_t$" }
     private:
       - { transform: unexport }
     post-global:

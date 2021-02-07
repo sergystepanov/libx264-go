@@ -1,5 +1,5 @@
 all:
-	c-for-go -ccdefs x264.yml
+	c-for-go -ccincl x264.yml
 
 clean:
 	rm -f x264/cgo_helpers.go x264/cgo_helpers.h x264/cgo_helpers.c
